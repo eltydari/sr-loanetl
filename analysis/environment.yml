@@ -1,0 +1,22 @@
+# we use conda to manage our python environment via this file, documentation on conda environments is here: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+# if you're using PyCharm, documentation on creating environments is here: https://www.jetbrains.com/help/pycharm/conda-support-creating-conda-virtual-environment.html
+# if you're using VS Code, documentation on managing environments is here:  https://code.visualstudio.com/docs/python/environments
+
+# the most basic commands for creating, updating, and activating an environment are:
+# conda env create -n iex-data -f environment.yml
+# conda env update -n iex-data -f environment.yml
+# conda activate iex-data
+
+name: iex-data
+channels:
+  - conda-forge
+dependencies:
+  - python==3.7
+  - click==7.0
+  - jupyter==1.0.0
+  - pandas==0.24.2
+  - pip==10.0.1
+  - python-json-logger==0.1.10
+  - python-dateutil==2.7.3
+  - requests==2.19.1
+  - setuptools==40.4.3
