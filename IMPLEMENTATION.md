@@ -13,4 +13,9 @@ The following represents the basic schema as an ER diagram which includes the es
 The data will be an aggregate of data across all platforms. The schema will consist of 2 tables which establish a relationship between a loan and its periodic status updates.  New attributes have been created as follows:
 
 * Platform name (loan table) - the unique identifier for the platform.
-* Record date (status table) - date at which record was generated, this can either be
+* Record date (status table) - date at which record was generated, this can either be the upload date or a user-specified date (for corrections).
+
+
+## Architecture
+
+todo
