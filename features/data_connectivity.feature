@@ -1,5 +1,5 @@
-# -- FILE: features/connectivity.feature
-Feature: Connectivity
+# -- FILE: features/data_connectivity.feature
+Feature: Data Connectivity
 
     The ETL pipeline should define connectors to data source types. 
     These connectors should transform source data format into a 
