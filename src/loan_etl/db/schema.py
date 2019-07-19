@@ -1,7 +1,7 @@
 # -- FILE: src/loan_etl/db/schema.py
 import sqlalchemy as db
 from   sqlalchemy import (Column, Integer, BigInteger, String, 
-                            Date, Float, Numeric)
+                            Date, DateTime, Float, Numeric)
 from   sqlalchemy.ext.declarative import declarative_base
 from   sqlalchemy.orm import relationship
 
@@ -28,4 +28,13 @@ class Status(Base):
     PrincipalPaid = Column("principal_paid", Numeric(precision=15, scale=2), nullable=False)
     InterestPaid  = Column("interest_paid", Numeric(precision=15, scale=2), nullable=False)
     LoanStatus    = Column("loan_status", String(255), nullable=False)
-    Loans         = relationship('loans', backref='status')
+    Loan          = relationship("loans", backref="status")
+
+class Logs(Base):
+    __tablename__ = "logs"
+    Id            = Column("id", BigInteger(), primary_key=True, unique=True)
+    LoanId        = Column("loan_id", BigInteger(), db.schema.ForeignKey("loans.platform_name"))
+    Time          = Column("time", DateTime(), nullable=False)
+    Type          = Column("type", String(255), nullable=False)
+    Message       = Column("message", String(255))
+    Loan          = relationship("loans", backref="logs")
