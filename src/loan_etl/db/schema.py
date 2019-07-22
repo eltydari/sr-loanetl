@@ -1,4 +1,7 @@
 # -- FILE: src/loan_etl/db/schema.py
+'''
+Defines the schema for the tables
+'''
 import sqlalchemy as db
 from   sqlalchemy import (Column, Integer, BigInteger, String, 
                             Date, DateTime, Float, Numeric)

@@ -1,4 +1,7 @@
 # -- FILE: src/loan_etl/db/loader.py
+'''
+Handles loading of data into SQL database
+'''
 import sqlalchemy as db
 
 class DbLoader(object):
