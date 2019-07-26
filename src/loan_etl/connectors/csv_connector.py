@@ -6,11 +6,15 @@ from .base import ConnectorBase
 
 class CsvConnector(ConnectorBase):
     
-    def __init__(self, filePath, delimiter=','):
-        super().__init__(configuration)
+    def __init__(self, path=None, delimiter=','):
+        super().__init__()
 
-    def load(self):
+    @property
+    def contents(self):
+        pass
+
+    def load(self, path=None):
         raise NotImplementedError
 
-    def transform(self, data):
+    def transform(self):
         raise NotImplementedError

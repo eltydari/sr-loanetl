@@ -1,4 +1,5 @@
 # -- FILE: features/db_connectivity.feature
+@skip
 Feature: Database Connectivity
   The ETL pipeline should define modular database connectors
   which will allow loading to multiple destinations and 
