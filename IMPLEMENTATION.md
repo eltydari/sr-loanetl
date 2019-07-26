@@ -27,6 +27,7 @@ The ETL will feature connectors: new connectors can be implemented in code, and 
 
 The code when implemented this way will lay the foundation for migration to a distributed cloud solution. While this version of the implementation is neither optimally efficient nor fault-tolerant, I imagine a Spark + Amazon EMR + AWS Batch/Lambda implementation will address these problems.
 
+
 ### Features
 
 Based on the architecture, we can distill the requirements down to 4 features:
