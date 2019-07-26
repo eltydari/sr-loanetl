@@ -8,11 +8,16 @@ class ConnectorBase(ABC):
  
     def __init__(self):
         super().__init__()
+
+    @property
+    @abstractmethod
+    def contents(self):
+        pass
     
     @abstractmethod
     def load(self):
-        pass
+        return self
 
     @abstractmethod
-    def transform(self, data):
-        pass
+    def transform(self):
+        return self
