@@ -7,11 +7,5 @@ import src.loan_etl.connectors.csv_connector as csvc
 def when_load_data_from_csv(context, fileName):
     dir = context.dir.name
     filePath = os.path.join(dir, fileName)
-
-    connector = csvc.CsvConnector()
-    context.result = connector.load(filePath).contents
-
-"""     with open(os.path.join(dir, fileName), newline='') as f:
-        csvreader = csv.reader(f, delimiter=',')
-        for row in csvreader:
-            assert False, row """
+    connector = csvc.CsvConnector(filePath)
+    context.result = connector.load().contents
