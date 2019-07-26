@@ -19,5 +19,5 @@ class ConnectorBase(ABC):
         return self
 
     @abstractmethod
-    def transform(self):
+    def transform(self, mapinfo):
         return self
