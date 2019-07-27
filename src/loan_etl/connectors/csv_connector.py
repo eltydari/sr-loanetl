@@ -20,14 +20,17 @@ class CsvConnector(ConnectorBase):
 
     @property
     def contents(self):
+        # Flattens and returns the data
         df = pd.DataFrame(columns = self._headers)
+        source = []
         if self._processed:
-            pass
-        if self._csvreader:
+            source = self._processed
+        elif self._csvreader:
             self._file.seek(0)
             next(self._csvreader, None)
-            for row in self._csvreader:
-                df = df.append(row, ignore_index=True)
+            source = self._csvreader
+        for row in source:
+            df = df.append(row, ignore_index=True)
         return df
 
     def load(self):
@@ -37,4 +40,17 @@ class CsvConnector(ConnectorBase):
         return self
 
     def transform(self, mapinfo=None):
+        if mapinfo:
+            # Generator saves memory space for large datasets
+            def data_gen(data):
+                for row in data:
+                    new_row = {}
+                    for key, value in mapinfo.items():
+                        cell = row[value["source"]]
+                        # Potential security vulnerability; alternatives out of scope
+                        func = eval(value["transformation"]) if value["transformation"] else lambda x: x
+                        new_row[key] = func(cell)
+                    yield new_row
+            self._headers = mapinfo.keys()
+            self._processed = data_gen(self._csvreader)
         return self
