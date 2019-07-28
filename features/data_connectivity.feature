@@ -4,6 +4,9 @@ Feature: Data Connectivity
   These connectors should transform source data format into a 
   common intermediate format for loading into the database.
 
+  Background: We have a folder for storing files
+    Given we have a folder
+
   Scenario: Basic CSV files
     I should be able to load in a basic csv file without any custom
     transformations and get the same table in Python format.

@@ -1,4 +1,4 @@
-# -- FILE: features/steps/ops_file.feature
+# -- FILE: features/steps/connectors.py
 import csv
 import os.path
 import src.loan_etl.connectors.csv_connector as csvc

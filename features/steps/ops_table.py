@@ -1,4 +1,4 @@
-# -- FILE: features/steps/ops_table.feature
+# -- FILE: features/steps/ops_table.py
 from lib.assertions import assertItemsEqual
 
 @then(u"I will see the following table")

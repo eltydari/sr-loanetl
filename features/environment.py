@@ -2,7 +2,6 @@
 '''
 This file controls the behavior of the behave module
 '''
-import tempfile as tmp
 
 def before_feature(context, feature):
     if "skip" in feature.tags:
@@ -13,10 +12,3 @@ def before_scenario(context, scenario):
     if "skip" in scenario.effective_tags:
         scenario.skip("Marked with @skip")
         return
-    context.dir = tmp.TemporaryDirectory()
-
-def after_scenario(context, scenario):
-    if "skip" in scenario.effective_tags:
-        scenario.skip("Marked with @skip")
-        return
-    context.dir.cleanup()
