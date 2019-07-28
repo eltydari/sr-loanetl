@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/components/validators.py
+# -- FILE: loan_etl/components/validators.py
 '''
 Defines validators for the ingested data.
 '''

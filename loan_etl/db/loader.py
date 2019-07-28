@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/db/loader.py
+# -- FILE: loan_etl/db/loader.py
 '''
 Handles loading of data into SQL database
 '''
@@ -11,7 +11,7 @@ class DbLoader(object):
         if username and password:
             accessFields = ':'.join(username, password) + '@'
         self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, dbloc))
-        self.connection = self._engine.connect()
+        self._connection = self._engine.connect()
         
     def load(self):
         pass 

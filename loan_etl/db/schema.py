@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/db/schema.py
+# -- FILE: loan_etl/db/schema.py
 '''
 Defines the schema for the tables
 '''

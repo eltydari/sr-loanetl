@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/connectors/csv_connector.py
+# -- FILE: loan_etl/connectors/csv_connector.py
 '''
 Defines the CSV data connector.
 '''

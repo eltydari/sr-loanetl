@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/connectors/base.py
+# -- FILE: loan_etl/connectors/base.py
 '''
 Defines the data connector prototype class.
 '''
