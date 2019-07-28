@@ -6,7 +6,9 @@ def then_compare_tables(context):
     expected = context.table
     assert expected, "Ensure table is provided."
     observed = context.result
-    assertItemsEqual(list(observed.columns), expected.headings, "Headings do not match.")
+    assertItemsEqual([str(x) for x in observed.columns], 
+                        expected.headings, "Headings do not match.")
     assert len(expected.rows) == len(observed), "Number of rows does not match."
     for i in range(len(expected.rows)):
-        assertItemsEqual(observed.loc[i].values.tolist(), list(expected.rows[i]), "Rows do not match in content.")
+        assertItemsEqual([str(x) for x in observed.loc[i].tolist()], 
+                                list(expected.rows[i]), "Rows do not match in content.")

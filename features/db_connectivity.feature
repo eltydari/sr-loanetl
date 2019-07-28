@@ -1,5 +1,4 @@
 # -- FILE: features/db_connectivity.feature
-@skip
 Feature: Database Connectivity
   The ETL pipeline should be able to be configured
   to load data to multiple destinations
@@ -8,25 +7,12 @@ Feature: Database Connectivity
     Given a database
 
   Scenario: Basic database loading
-     When I load the following table:
-      | a  | b  | c  |
-      | a1 | b1 | c1 |
-      | a2 | b2 | c2 |
-      And I query the database with ""
+     When I load a table named "test" with the following:
+      | header1  | header2  | header3  |
+      | a1       | b1       | c1       |
+      | a2       | b2       | c2       |
+      And I query the database with "SELECT * FROM test"
      Then I will see the following table:
-      | a  | b  | c  |
+      | 0  | 1  | 2  |
       | a1 | b1 | c1 |
       | a2 | b2 | c2 |
-
-
-  '''Scenario: Postgres database
-    Given a new Postgres database
-     When I load the following table:
-      | a  | b  | c  |
-      | a1 | b1 | c1 |
-      | a2 | b2 | c2 |
-      And I call ""
-     Then I will see the following table:
-      | a  | b  | c  |
-      | a1 | b1 | c1 |
-      | a2 | b2 | c2 |'''
