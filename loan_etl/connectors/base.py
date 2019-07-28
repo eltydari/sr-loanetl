@@ -13,6 +13,10 @@ class ConnectorBase(ABC):
     @abstractmethod
     def contents(self):
         pass
+
+    @abstractmethod
+    def stream(self, chunksize):
+        pass
     
     @abstractmethod
     def load(self):

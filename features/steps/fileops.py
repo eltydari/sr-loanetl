@@ -13,6 +13,6 @@ def given_named_file_containing(context, fileName):
     with open(os.path.join(context.dir.name, fileName), 'w') as f:
         f.write(context.text)
 
-@given(u"a map with the following representation")
+@given(u"a configuration map with the following representation")
 def given_map_containing(context):
     context.map = json.loads(context.text)
