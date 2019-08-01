@@ -62,7 +62,7 @@ class CsvConnector(ConnectorBase):
                     func = eval(value["transformation"]) if value["transformation"] else lambda x: x
                     new_row[key] = func(cell)
                 yield new_row
-        self._processed = generate(self._csvreader)
+        return generate(self._csvreader)
 
     def _sourceData(self):
         if self._transfMap:

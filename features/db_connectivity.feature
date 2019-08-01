@@ -1,4 +1,5 @@
 # -- FILE: features/db_connectivity.feature
+@skip
 Feature: Database Connectivity
   The ETL pipeline should be able to be configured
   to load data to multiple destinations

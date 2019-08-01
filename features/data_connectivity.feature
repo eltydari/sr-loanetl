@@ -1,5 +1,4 @@
 # -- FILE: features/data_connectivity.feature
-@skip
 Feature: Data Connectivity
   The ETL pipeline should define connectors to data source types. 
   These connectors should transform source data format into a 
@@ -8,6 +7,7 @@ Feature: Data Connectivity
   Background: We have a folder for storing files
     Given we have a folder
 
+  @skip
   Scenario: Basic CSV files
     I should be able to load in a basic csv file without any custom
     transformations and get the same table in Python format.
@@ -18,12 +18,13 @@ Feature: Data Connectivity
       a1,b1,c1
       a2,b2,c2
       '''
-     When I use the csv connector to load data from "example.csv"
+     When I use the csv connector to load data from "test.csv"
      Then I will see the following table:
       | header1  | header2  | header3  |
       | a1       | b1       | c1       |
       | a2       | b2       | c2       |
-      
+    
+  @skip  
   Scenario: Streaming CSV files
     I should be able to stream a set number of data records from
     my csv table.
@@ -37,7 +38,7 @@ Feature: Data Connectivity
       a4,b4,c4
       a5,b5,c5
       '''
-     When I use the csv connector to load the first 2 rows from "example.csv"
+     When I use the csv connector to stream the first 2 rows from "test.csv"
      Then I will see the following table:
       | header1  | header2  | header3  |
       | a1       | b1       | c1       |
