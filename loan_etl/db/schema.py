@@ -13,6 +13,9 @@ Base = declarative_base()
 def get_schema():
     return Base.metadata
 
+def get_table(tableName):
+    return Base.metadata.tables.get(tableName)
+
 class Loans(Base):
     __tablename__   = "loans"
     LoanId          = Column("loan_id", BigInteger(), primary_key=True)
