@@ -15,4 +15,4 @@ def given_named_file_containing(context, fileName):
 
 @given(u"a configuration map with the following representation")
 def given_map_containing(context):
-    context.map = json.loads(context.text)
+    context.cfg = json.loads(context.text)
