@@ -16,7 +16,7 @@ class DbLoader(object):
         self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, dbloc))
         self._conn = self._engine.connect()
 
-    def setupTables(self, schema):
+    def setupTables(self, schema=SCHEMA):
         self._schema = schema
         self._schema.create_all(self._engine)
         
