@@ -57,7 +57,7 @@ class CsvConnector(ConnectorBase):
             for row in data:
                 new_row = {}
                 for key, value in self._transfMap.items():
-                    cell = row[value["source"]]
+                    cell = row.get(value["source"], None)
                     # Potential security vulnerability; alternatives out of scope
                     func = eval(value["transformation"]) if value["transformation"] else lambda x: x
                     new_row[key] = func(cell)
