@@ -3,25 +3,35 @@ import loan_etl.db.loader as dbimpl
 import pandas as pd
 import sqlalchemy as dbapi
 
-def setupTable(context, tableName):
-    schema = dbapi.MetaData()
-    columns = [dbapi.Column(header, dbapi.String()) 
-                for header in context.table.headings]
-    dbapi.Table(tableName, schema, *columns)
-    context.db.setupTables(schema = schema)
-
 @given(u"a database")
 def given_database(context):
     context.db = dbimpl.DbLoader()
 
-@when(u"I load a table named \"{tableName}\" with the following")
-def when_load_table(context, tableName):
-    setupTable(context, tableName)
+@given(u"I have a table named \"{tableName}\" with the following headers")
+def given_table_schema(context, tableName):
+    if not hasattr(context, "schema"):
+        context.schema = dbapi.MetaData()
+    headers = context.text.split('\n')
+    columns = [dbapi.Column(header, dbapi.String()) 
+                for header in headers]
+    dbapi.Table(tableName, context.schema, *columns)
+    context.db.setupTables(schema = context.schema)
+
+@step(u"I load the following into the database")
+def step_load_table(context):
     df = pd.DataFrame(columns = context.table.headings)
     for row in context.table.rows:
         pdrow = dict(zip(context.table.headings, row))
         df = df.append(pdrow, ignore_index=True)
     context.db.load(df)
+
+@step(u"I load, using the configuration, the following into the database")
+def step_config_load_table(context):
+    df = pd.DataFrame(columns = context.table.headings)
+    for row in context.table.rows:
+        pdrow = dict(zip(context.table.headings, row))
+        df = df.append(pdrow, ignore_index=True)
+    context.db.load(df, mapper=context.cfg)
 
 @when(u"I query the database with \"{query}\"")
 def when_query_table(context, query):
