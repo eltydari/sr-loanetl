@@ -1,4 +1,5 @@
 # -- FILE: features/data_connectivity.feature
+@skip
 Feature: Data Connectivity
   The ETL pipeline should define connectors to data source types. 
   These connectors should transform source data format into a 
@@ -49,29 +50,29 @@ Feature: Data Connectivity
     in a csv file, I should receive a transformed table in Python format.
 
     Given a file named "test.csv" with:
-    '''
-    header1,header2,header3
-    yes,1,sally
-    no,8.0,charlie
-    no,.8,bee
-    '''
+      '''
+      header1,header2,header3
+      yes,1,sally
+      no,8.0,charlie
+      no,.8,bee
+      '''
     And a configuration map with the following representation:
-    '''
-    {
-      "official_header1":{
-        "source": "header1",
-        "transformation": "lambda x: True if x==\"yes\" else False"
-      },
-      "official_header2":{
-        "source": "header2",
-        "transformation": "lambda x: float(x)"
-      },
-      "official_header3":{
-        "source": "header3",
-        "transformation": null
+      '''
+      {
+        "official_header1":{
+          "source": "header1",
+          "transformation": "lambda x: True if x==\"yes\" else False"
+        },
+        "official_header2":{
+          "source": "header2",
+          "transformation": "lambda x: float(x)"
+        },
+        "official_header3":{
+          "source": "header3",
+          "transformation": null
+        }
       }
-    }
-    '''
+      '''
     When I use the csv connector with the map to load data from "test.csv"
     Then I will see the following table:
       | official_header1 | official_header2 | official_header3 |
@@ -85,29 +86,29 @@ Feature: Data Connectivity
     column in my resulting table.
 
     Given a file named "test.csv" with:
-        '''
-        header1,header2
-        yes,1
-        no,8.0
-        no,.8
-        '''
+      '''
+      header1,header2
+      yes,1
+      no,8.0
+      no,.8
+      '''
     And a configuration map with the following representation:
-    '''
-    {
-      "official_header1":{
-        "source": "header1",
-        "transformation": "lambda x: True if x==\"yes\" else False"
-      },
-      "official_header2":{
-        "source": "header2",
-        "transformation": "lambda x: float(x)"
-      },
-      "official_header3":{
-        "source": null,
-        "transformation": "lambda x: \"hello world!\""
+      '''
+      {
+        "official_header1":{
+          "source": "header1",
+          "transformation": "lambda x: True if x==\"yes\" else False"
+        },
+        "official_header2":{
+          "source": "header2",
+          "transformation": "lambda x: float(x)"
+        },
+        "official_header3":{
+          "source": null,
+          "transformation": "lambda x: \"hello world!\""
+        }
       }
-    }
-    '''
+      '''
     When I use the csv connector with the map to load data from "test.csv"
     Then I will see the following table:
       | official_header1 | official_header2 | official_header3 |
