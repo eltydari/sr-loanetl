@@ -1,4 +1,4 @@
-# -- FILE: src/loan_etl/db/schema.py
+# -- FILE: loan_etl/db/schema.py
 '''
 Defines the schema for the tables
 '''
@@ -12,6 +12,9 @@ Base = declarative_base()
 
 def get_schema():
     return Base.metadata
+
+def get_table(tableName):
+    return Base.metadata.tables.get(tableName)
 
 class Loans(Base):
     __tablename__   = "loans"
@@ -32,7 +35,7 @@ class Status(Base):
     InterestPaid  = Column("interest_paid", Numeric(precision=15, scale=2), nullable=False)
     LoanStatus    = Column("loan_status", String(255), nullable=False)
     Loan          = relationship("loans", backref="status")
-
+'''
 class Logs(Base):
     __tablename__ = "logs"
     Id            = Column("id", BigInteger(), primary_key=True, unique=True)
@@ -40,4 +43,4 @@ class Logs(Base):
     Time          = Column("time", DateTime(), nullable=False)
     Type          = Column("type", String(255), nullable=False)
     Message       = Column("message", String(255))
-    Loan          = relationship("loans", backref="logs")
+    Loan          = relationship("loans", backref="logs")'''

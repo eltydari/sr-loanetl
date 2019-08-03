@@ -1,4 +1,4 @@
-#Implementation Plan (version 1)
+# Implementation Plan (version 1)
 
 This will be the plan of v1 of the application. Once it is implemented and based on whether I decide to focus on analysis or ETL, I will create a v2 implementation plan where I will expand upon the schema/architecture.
 

@@ -1,17 +1,26 @@
-# -- FILE: features/steps/ops_file.feature
+# -- FILE: features/steps/connectors.py
 import csv
 import os.path
-import src.loan_etl.connectors.csv_connector as csvc
+import loan_etl.connectors.csv_connector as csvc
+
+def getConnector(context, fileName):
+    if not hasattr(context, "connector"):
+        filePath = os.path.join(context.dir.name, fileName)
+        context.connector = csvc.CsvConnector(filePath)
+    return context.connector
 
 @when(u"I use the csv connector to load data from \"{fileName}\"")
-def step_impl(context, fileName):
-    dir = context.dir.name
-    filePath = os.path.join(dir, fileName)
+def when_load_data_from_csv(context, fileName):
+    connector = getConnector(context, fileName)
+    context.result = connector.load().contents
 
-    connector = csvc.CsvConnector()
-    context.result = connector.load(filePath).contents
+@when(u"I use the csv connector to stream {stream_size} rows from \"{fileName}\"")
+def when_stream_data_from_csv(context, stream_size, fileName):
+    stream_size = int(stream_size)
+    connector = getConnector(context, fileName)
+    context.result = context.connector.load().transform().stream(stream_size)
 
-"""     with open(os.path.join(dir, fileName), newline='') as f:
-        csvreader = csv.reader(f, delimiter=',')
-        for row in csvreader:
-            assert False, row """
+@when(u"I use the csv connector with the map to load data from \"{fileName}\"")
+def when_load_data_from_csv(context, fileName):
+    connector = getConnector(context, fileName)
+    context.result = connector.load().transform(context.cfg).contents
