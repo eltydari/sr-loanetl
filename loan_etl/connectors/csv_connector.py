@@ -18,6 +18,7 @@ class CsvConnector(ConnectorBase):
         self._csvreader = None
         self._processed = None
         self._transfMap = None
+        self._streamer = None
 
     @property
     def contents(self):
@@ -28,12 +29,13 @@ class CsvConnector(ConnectorBase):
             df = df.append(row, ignore_index=True)
         return df
 
-    def stream(self, chunksize=100):
+    def stream(self, chunksize=100, reset=False):
         # Returns the data in chunks
         df = pd.DataFrame(columns = self._headers)
-        dsource = self._sourceData()
+        if not self._streamer or reset:
+            self._streamer = self._sourceData()
         for _ in range(chunksize):
-            row = next(dsource, None)
+            row = next(self._streamer, None)
             if not row:
                 return df
             df = df.append(row, ignore_index=True)
@@ -65,10 +67,11 @@ class CsvConnector(ConnectorBase):
         return generate(self._csvreader)
 
     def _sourceData(self):
+        self._file.seek(0)
+        next(self._csvreader, None)
+
         if self._transfMap:
             return self._transformImpl()
         elif self._csvreader:
-            self._file.seek(0)
-            next(self._csvreader, None)
             return self._csvreader
         return []
