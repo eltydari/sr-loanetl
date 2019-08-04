@@ -7,7 +7,7 @@ import csv
 import os.path
 import pandas as pd
 
-class CsvConnector(ConnectorBase):
+class CSVConnector(ConnectorBase):
     
     def __init__(self, filePath, delimiter = ','):
         super().__init__()
@@ -59,7 +59,7 @@ class CsvConnector(ConnectorBase):
             for row in data:
                 new_row = {}
                 for key, value in self._transfMap.items():
-                    cell = row.get(value["source"], None)
+                    cell = row.get(value["sourceColumn"], None)
                     # Potential security vulnerability; alternatives out of scope
                     func = eval(value["transformation"]) if value["transformation"] else lambda x: x
                     new_row[key] = func(cell)
