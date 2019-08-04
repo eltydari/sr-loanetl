@@ -17,9 +17,12 @@ class DBLoader(object):
         self._schema = schema
         self._schema.create_all(self._engine)
         
-    def load(self, df_data, mapper={}):
+    def load(self, df_data, mapping={}):
         # Note: df_data needs to be a pandas dataframe
-        if not mapper:
+        if not hasattr(self, "_schema"):
+            raise Exception("Database loader does not have tables setup. \
+                             Call setupTables method with a valid schema.")
+        if not mapping:
             table = self._schema.tables[list(self._schema.tables.keys())[0]]
             data = [dict(row) for _, row in df_data.iterrows()]
             return self._conn.execute(db.insert(table), data)
@@ -27,7 +30,7 @@ class DBLoader(object):
         for _, row in df_data.iterrows():
             entry = {}
             for k,v in row.items():
-                destinations = mapper[k]["destTables"]
+                destinations = mapping[k]["destTables"]
                 for destination in destinations:
                     entry.setdefault(destination,{})[k] = v
             for dest, drow in entry.items():

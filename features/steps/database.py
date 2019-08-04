@@ -31,7 +31,7 @@ def step_config_load_table(context):
     for row in context.table.rows:
         pdrow = dict(zip(context.table.headings, row))
         df = df.append(pdrow, ignore_index=True)
-    context.db.load(df, mapper=context.cfg)
+    context.db.load(df, mapping=context.cfg)
 
 @when(u"I query the database with \"{query}\"")
 def when_query_table(context, query):
