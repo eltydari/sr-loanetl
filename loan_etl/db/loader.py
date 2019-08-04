@@ -30,7 +30,7 @@ class DbLoader(object):
         for _, row in df_data.iterrows():
             entry = {}
             for k,v in row.items():
-                destinations = mapper[k]["destination"]
+                destinations = mapper[k]["destTables"]
                 for destination in destinations:
                     entry.setdefault(destination,{})[k] = v
             for dest, drow in entry.items():

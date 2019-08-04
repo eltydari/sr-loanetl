@@ -63,15 +63,15 @@ Feature: Data Connectivity
       '''
       {
         "official_header1":{
-          "source": "header1",
+          "sourceColumn": "header1",
           "transformation": "lambda x: True if x==\"yes\" else False"
         },
         "official_header2":{
-          "source": "header2",
+          "sourceColumn": "header2",
           "transformation": "lambda x: float(x) + 1"
         },
         "official_header3":{
-          "source": "header3",
+          "sourceColumn": "header3",
           "transformation": null
         }
       }
@@ -99,11 +99,11 @@ Feature: Data Connectivity
       '''
       {
         "official_header1":{
-          "source": "header1",
+          "sourceColumn": "header1",
           "transformation": "lambda x: True if x==\"yes\" else False"
         },
         "official_header2":{
-          "source": null,
+          "sourceColumn": null,
           "transformation": "lambda x: \"hello world!\""
         }
       }

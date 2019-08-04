@@ -47,16 +47,16 @@ Feature: Database Connectivity
       '''
       {
         "header1":{
-          "destination": ["test1", "test2"]
+          "destTables": ["test1", "test2"]
         },
         "header2":{
-          "destination": ["test1"]
+          "destTables": ["test1"]
         },
         "header3":{
-          "destination": ["test1"]
+          "destTables": ["test1"]
         },
         "header4":{
-          "destination": ["test2"]
+          "destTables": ["test2"]
         }
       }
       '''
