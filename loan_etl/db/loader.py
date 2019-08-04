@@ -6,11 +6,11 @@ import sqlalchemy as db
 
 class DBLoader(object):
 
-    def __init__(self, dbtype="sqlite", dbloc="/:memory:", username="", password=""):
+    def __init__(self, dbtype="sqlite", url="", username="", password=""):
         accessFields = ""
         if username and password:
             accessFields = ':'.join(username, password) + '@'
-        self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, dbloc))
+        self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, url))
         self._conn = self._engine.connect()
 
     def setupTables(self, schema):

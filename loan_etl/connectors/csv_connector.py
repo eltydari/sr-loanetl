@@ -29,7 +29,7 @@ class CSVConnector(ConnectorBase):
             df = df.append(row, ignore_index=True)
         return df
 
-    def stream(self, chunksize=100, reset=False):
+    def stream(self, chunksize=1000, reset=False):
         # Returns the data in chunks
         df = pd.DataFrame(columns = self._headers)
         if not self._streamer or reset:
