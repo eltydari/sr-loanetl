@@ -6,12 +6,11 @@ import sqlalchemy as db
 
 class DBLoader(object):
 
-    def __init__(self, dbtype="sqlite", url="", username="", password=""):
+    def __init__(self, dbtype="sqlite", url="", username="", password="", debug=False):
         accessFields = ""
         if username and password:
             accessFields = ':'.join(username, password) + '@'
-        self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, url))
-        self._conn = self._engine.connect()
+        self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, url), echo=debug)
 
     def setupTables(self, schema):
         self._schema = schema
@@ -25,7 +24,7 @@ class DBLoader(object):
         if not mapping:
             table = self._schema.tables[list(self._schema.tables.keys())[0]]
             data = [dict(row) for _, row in df_data.iterrows()]
-            return self._conn.execute(db.insert(table), data)
+            return self._engine.connect().execute(db.insert(table), data)
         tables = {}
         for _, row in df_data.iterrows():
             entry = {}
@@ -35,6 +34,6 @@ class DBLoader(object):
                     entry.setdefault(destination,{})[k] = v
             for dest, drow in entry.items():
                 tables.setdefault(dest, []).append(drow)
-        return tuple(self._conn.execute(db.insert(self._schema.tables[tableName]), data) 
+        return tuple(self._engine.connect().execute(db.insert(self._schema.tables[tableName]), data) 
                         for tableName, data in tables.items())
 

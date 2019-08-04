@@ -1,0 +1,33 @@
+{
+    "streaming_size": 1000,
+    "db":{
+        "dbtype": "sqlite",
+        "url": "/tmp/etl_test/data.db",
+        "username": "",
+        "password": ""
+    },
+    "data":{
+        "dataType": "csv",
+        "connectorArgs":{
+            "filePath": "/tmp/etl_test/test.csv",
+            "delimiter": ","
+        },
+        "mapping":{
+            "official_header1":{
+                "sourceColumn": "header1",
+                "transformation": null,
+                "destTables": ["table1"]
+            },
+            "official_header2":{
+                "sourceColumn": "header2",
+                "transformation": null,
+                "destTables": ["table1"]
+            },
+            "official_header3":{
+                "sourceColumn": "header3",
+                "transformation": null,
+                "destTables": ["table1"]
+            }
+        }
+    }
+}
