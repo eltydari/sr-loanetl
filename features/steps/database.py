@@ -7,7 +7,7 @@ import sqlalchemy as dbapi
 def given_database(context):
     context.db = dbimpl.DbLoader()
 
-@given(u"I have a table named \"{tableName}\" with the following headers")
+@given(u"a table named \"{tableName}\" with the following headers")
 def given_table_schema(context, tableName):
     if not hasattr(context, "schema"):
         context.schema = dbapi.MetaData()

@@ -10,7 +10,7 @@ Feature: Database Connectivity
     I should be able to load a table into the database and 
     successfully query it with SQL.
 
-    Given I have a table named "test" with the following headers:
+    Given a table named "test" with the following headers:
       '''
       header1
       header2
@@ -32,13 +32,13 @@ Feature: Database Connectivity
     table 1 and get my expected data.
     Note: Table names must be defined in schema.py beforehand
 
-    Given I have a table named "test1" with the following headers:
+    Given a table named "test1" with the following headers:
       '''
       header1
       header2
       header3
       '''
-      And I have a table named "test2" with the following headers:
+      And a table named "test2" with the following headers:
       '''
       header1
       header4
