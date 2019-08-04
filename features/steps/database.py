@@ -5,7 +5,7 @@ import sqlalchemy as dbapi
 
 @given(u"a database")
 def given_database(context):
-    context.db = dbimpl.DbLoader()
+    context.db = dbimpl.DBLoader()
 
 @given(u"a table named \"{tableName}\" with the following headers")
 def given_table_schema(context, tableName):

@@ -3,11 +3,8 @@
 Handles loading of data into SQL database
 '''
 import sqlalchemy as db
-from   .schema import get_schema
 
-SCHEMA = get_schema()
-
-class DbLoader(object):
+class DBLoader(object):
 
     def __init__(self, dbtype="sqlite", dbloc="/:memory:", username="", password=""):
         accessFields = ""
@@ -16,7 +13,7 @@ class DbLoader(object):
         self._engine = db.create_engine("{}://{}{}".format(dbtype, accessFields, dbloc))
         self._conn = self._engine.connect()
 
-    def setupTables(self, schema=SCHEMA):
+    def setupTables(self, schema):
         self._schema = schema
         self._schema.create_all(self._engine)
         
