@@ -9,7 +9,7 @@
     "data":{
         "dataType": "csv",
         "connectorArgs":{
-            "filePath": "/tmp/etl_test/test.csv",
+            "path": "/tmp/etl_test/test.csv",
             "delimiter": ","
         },
         "mapping":{

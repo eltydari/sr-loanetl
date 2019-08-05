@@ -23,9 +23,9 @@ Feature: Data Connectivity
       | a1       | b1       | c1       |
       | a2       | b2       | c2       |
     
-  Scenario: Streaming CSV files
+  Scenario: Streaming a CSV file
     I should be able to stream a set number of data records from
-    my csv table.
+    my csv file.
 
     Given a file named "test.csv" with:
       '''
@@ -42,6 +42,35 @@ Feature: Data Connectivity
       | a1       | b1       | c1       |
       | a2       | b2       | c2       |
      When I use the csv connector to stream 3 rows from "test.csv"
+     Then I will see the following table:
+      | header1  | header2  | header3  |
+      | a3       | b3       | c3       |
+      | a4       | b4       | c4       |
+      | a5       | b5       | c5       |
+  
+  Scenario: Streaming Multiple CSV files
+    I should be able to stream a data records from multiple csv files
+    that share a folder designated by the configuration file.
+    
+    Given a file named "test1.csv" with:
+      '''
+      header1,header2,header3
+      a1,b1,c1
+      a2,b2,c2
+      a3,b3,c3
+      '''
+      And a file named "test2.csv" with:
+      '''
+      header1,header2,header3
+      a4,b4,c4
+      a5,b5,c5
+      '''
+     When I use the csv connector to stream 2 rows from the folder
+     Then I will see the following table:
+      | header1  | header2  | header3  |
+      | a1       | b1       | c1       |
+      | a2       | b2       | c2       |
+     When I use the csv connector to stream 3 rows from the folder
      Then I will see the following table:
       | header1  | header2  | header3  |
       | a3       | b3       | c3       |

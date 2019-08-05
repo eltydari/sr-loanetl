@@ -38,7 +38,7 @@ Feature: Pipeline Configuration Files
          "data":{
             "dataType": "csv",
             "connectorArgs":{
-               "filePath": "%s/test.csv",
+               "path": "%s/test.csv",
                "delimiter": ","
             },
             "mapping":{

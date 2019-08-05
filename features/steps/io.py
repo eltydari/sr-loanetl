@@ -25,6 +25,11 @@ def given_map_containing_placeholders(context, fileName):
 def given_map_containing(context):
     context.cfg = json.loads(context.text)
 
+@given(u"a configuration map, with the \"%s\" placeholder representing my folder path")
+def given_map_containing_placeholders(context):
+    dirName = context.dir.name
+    context.cfg = json.loads(context.text % dirName)
+
 @when(u"I run the following command, with the placeholder representing my folder path")
 def run_command_placeholders(context):
     from loan_etl.app.pipeline import run
