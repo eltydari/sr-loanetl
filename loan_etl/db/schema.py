@@ -10,11 +10,8 @@ from   sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
-def get_schema():
+def getSchema():
     return Base.metadata
-
-def get_table(tableName):
-    return Base.metadata.tables.get(tableName)
 
 class Loans(Base):
     __tablename__   = "loans"

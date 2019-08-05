@@ -2,6 +2,6 @@
 @skip
 Feature: Data Sanitization
   The ETL pipeline should be able to perform basic
-  cleanup of data from datasources.
+  cleanup and validation on data from datasources.
 
   Scenario: tbd
