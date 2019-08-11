@@ -3,6 +3,7 @@
 Defines the CSV data connector.
 '''
 from   .base import ConnectorBase
+from   ..validators.datatype import getValidator, ERROR
 import csv
 import os
 import os.path
@@ -50,7 +51,8 @@ class CSVConnector(ConnectorBase):
         def generate():
             for f in self._files:
                 csvreader = csv.DictReader(f, delimiter = self._delimiter)
-                self._headers = csvreader.fieldnames
+                if not self._headers:
+                    self._headers = csvreader.fieldnames
                 for row in csvreader:
                     yield row
 
@@ -62,17 +64,25 @@ class CSVConnector(ConnectorBase):
         # Transforms the data into processed data
         if mapping:
             self._headers = mapping.keys()
-
             def generate():
                 for row in self._rawData:
                     new_row = {}
                     for k,v in mapping.items():
                         cell = row.get(v["sourceColumn"], None)
+                        cell_type = v.get("type")
+                        if cell_type:
+                            validate = getValidator(cell_type)
+                            try:
+                                cell = validate(cell)
+                            except Exception as e:
+                                new_row.setdefault(ERROR, []).append("Column {} ({}): {}".format(v["sourceColumn"], k, repr(e)))
+                                continue
                         # Potential security vulnerability; alternatives out of scope
                         transform = v["transformation"]
                         if transform and transform[:6] != "lambda":
                             raise Exception("Transformation provided was not a lambda")
-                        func = eval(transform) if transform else lambda x: x
+                        import datetime
+                        func = eval(transform, locals()) if transform else lambda x: x
                         new_row[k] = func(cell)
                     yield new_row
                     

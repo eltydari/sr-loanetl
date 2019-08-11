@@ -1,0 +1,78 @@
+{
+    "streaming_size": 1000,
+    "db":{
+        "dbtype": "postgresql",
+        "url": "sr-project-db.chwskjtkf6qn.us-east-2.rds.amazonaws.com:5432",
+        "username": "postgres",
+        "password": "temppass"
+    },
+    "data":{
+        "dataType": "csv",
+        "connectorArgs":{
+            "path": "/home/vagrant/development/LoanDataAnalysis/data/platformA",
+            "delimiter": ","
+        },
+        "mapping":{
+            "loan_id":{
+                "sourceColumn": "loan_id",
+                "transformation": null,
+                "type": "integer",
+                "destTables": ["loans", "status"]
+            },
+            "issue_date":{
+                "sourceColumn": "origination_date",
+                "transformation": null,
+                "type": "date",
+                "destTables": ["loans"]
+            },
+            "original_balance":{
+                "sourceColumn": "amount_borrowed",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["loans"]
+            },
+            "interest_rate":{
+                "sourceColumn": "borrower_rate",
+                "transformation": null,
+                "type": "float",
+                "destTables": ["loans"]
+            },
+            "platform_rating":{
+                "sourceColumn": "platform_rating",
+                "transformation": null,
+                "type": "string",
+                "destTables": ["loans"]
+            },
+            "loan_status":{
+                "sourceColumn": "loan_status_description",
+                "transformation": null,
+                "type": "string",
+                "destTables": ["loans", "status"]
+            },
+            "principal_paid":{
+                "sourceColumn": "principal_paid",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["status"]
+            },
+            "interest_paid":{
+                "sourceColumn": "interest_paid",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["status"]
+            },
+            "platform_name":{
+                "sourceColumn": null,
+                "transformation": "lambda x: \"platformA\"",
+                "type": "string",
+                "destTables": ["loans", "status"]
+            },
+            "record_date":{
+                "sourceColumn": null,
+                "transformation": "lambda x: datetime.date.today()",
+                "type": "date",
+                "destTables": ["status"]
+            }
+        }
+    }
+}

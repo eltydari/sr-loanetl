@@ -16,12 +16,11 @@ def runPipeline(config):
 
     connector = getConnector(connectorType, **connectorArgs)
     db = DBLoader(**dbArgs)
-    db.setupTables(getSchema())
 
-    data = connector.load().transform(dataMap)
+    dataConnector = connector.load().transform(dataMap)
     dstream = None
     while True:
-        dstream = data.stream(streaming_size)
+        dstream = dataConnector.stream(streaming_size)
         if dstream.empty:
             break
         retval = db.load(dstream, mapping=dataMap)
