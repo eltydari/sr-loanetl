@@ -1,0 +1,78 @@
+{
+    "streaming_size": 1000,
+    "db":{
+        "dbtype": "postgresql",
+        "url": "sr-project-db.chwskjtkf6qn.us-east-2.rds.amazonaws.com:5432",
+        "username": "postgres",
+        "password": "Digivic44$"
+    },
+    "data":{
+        "dataType": "csv",
+        "connectorArgs":{
+            "path": "/home/vagrant/development/LoanDataAnalysis/data/lendingclub",
+            "delimiter": ","
+        },
+        "mapping":{
+            "loan_id":{
+                "sourceColumn": "id",
+                "transformation": null,
+                "type": "integer",
+                "destTables": ["loans", "status"]
+            },
+            "issue_date":{
+                "sourceColumn": "issue_d",
+                "transformation": "lambda x: '2018-{}'.format(x)",
+                "type": "string",
+                "destTables": ["loans"]
+            },
+            "original_balance":{
+                "sourceColumn": "loan_amnt",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["loans"]
+            },
+            "interest_rate":{
+                "sourceColumn": "int_rate",
+                "transformation": "lambda x: float(x[:-1])*.01",
+                "type": "string",
+                "destTables": ["loans"]
+            },
+            "platform_rating":{
+                "sourceColumn": "grade",
+                "transformation": null,
+                "type": "string",
+                "destTables": ["loans"]
+            },
+            "loan_status":{
+                "sourceColumn": "loan_status",
+                "transformation": null,
+                "type": "string",
+                "destTables": ["loans", "status"]
+            },
+            "principal_paid":{
+                "sourceColumn": "total_rec_prncp",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["status"]
+            },
+            "interest_paid":{
+                "sourceColumn": "total_rec_int",
+                "transformation": null,
+                "type": "currency",
+                "destTables": ["status"]
+            },
+            "platform_name":{
+                "sourceColumn": null,
+                "transformation": "lambda x: \"lendingclub\"",
+                "type": "string",
+                "destTables": ["loans", "status"]
+            },
+            "record_date":{
+                "sourceColumn": null,
+                "transformation": "lambda x: datetime.date.today()",
+                "type": "date",
+                "destTables": ["status"]
+            }
+        }
+    }
+}
