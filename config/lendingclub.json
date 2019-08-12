@@ -4,7 +4,7 @@
         "dbtype": "postgresql",
         "url": "sr-project-db.chwskjtkf6qn.us-east-2.rds.amazonaws.com:5432",
         "username": "postgres",
-        "password": "Digivic44$"
+        "password": "temppass"
     },
     "data":{
         "dataType": "csv",
